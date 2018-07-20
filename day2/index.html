@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<style>
+		html  {
+			background: linear-gradient(#8A2387, #E94057, #F27121);
+			font-size: 10px;
+		}
+		.container {
+			position: relative;
+			display: flex;
+			height: 100vh;
+			align-content: center;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.hand {
+			position: absolute;
+			right: 50%;
+			box-shadow: 0 1px 1px 0px rgba(0,0,0,0.1);
+			transform-origin: bottom;
+	      	transition: all 0.05s;
+      		transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+		}
+		#clock {
+			position: relative;
+			height: 400px;
+			width: 400px;
+			background: #FFF;
+			border: 15px solid #333;
+			border-radius: 100%;
+			box-shadow: inset 0 1px 2px 0px rgba(0,0,0,0.5);
+			margin-bottom: 10vh;
+		}
+		#hour-hand {
+			top: 2%;
+			height: 48%;
+			width: 1rem;
+			background: #333;
+		}
+		#minute-hand {
+			top: 4%;
+			height: 46%;
+			width: .8rem;
+			background: #333;
+		}
+		#second-hand {
+			top: 4%;
+			height: 46%;
+			width: .5rem;
+			background: #F92672;
+		}
+	</style>
+
+	<div class="container">
+		<div id="clock">
+			<div id="second-hand" class="hand" style="transform: rotate(30deg)"></div>
+			<div id="minute-hand" class="hand" style="transform: rotate(60deg)"></div>
+			<div id="hour-hand" class="hand" style="transform: rotate(90deg)"></div>
+		</div>
+	</div>
+	
+	<script>
+		// retrieve a static date object
+		const transformHours = time => {
+			return (time.hours * 360 / 12) + (time.minutes * 360 / (12 * 60)) + (time.seconds * 360 / (12 * 60 * 60)) 
+		}
+		const transformMinutes = time => {
+			return (time.minutes * 360 / 60) + (time.seconds * 360 / (60 * 60))
+		}
+		const transformSeconds = time => {
+			return time.seconds * 6
+		}
+		const staticTime = new Date()
+		const time = {
+			hours: staticTime.getHours() > 12 ? staticTime.getHours() - 12 : staticTime.getHours(),
+			minutes: staticTime.getMinutes(),
+			seconds: staticTime.getSeconds(),
+			increment: function() {
+				this.seconds++
+				if(this.seconds === 60) {
+					this.seconds = 0;
+					this.minutes++;
+				}
+				if(this.minutes === 60) {
+					this.minutes = 0;
+					this.hours++;
+				}
+				if(this.hours === 13) {
+					this.hours = 1;
+				}			
+			},
+		}
+		function move() {
+			const clock = document.querySelectorAll('.hand')
+			clock.forEach(hand => {
+				switch(hand.getAttribute('id')) {
+					case 'second-hand':
+						hand.setAttribute('style', `transform: rotate(${transformSeconds(time)}deg)`)
+						break
+					case 'minute-hand':			
+						hand.setAttribute('style', 
+							`transform: rotate(${transformMinutes(time)}deg)`
+						)
+						break
+					case 'hour-hand':
+						hand.setAttribute('style', `transform: rotate(${transformHours(time)}deg)`)
+						break
+				}
+			})
+		}
+		setInterval(() => {
+			time.increment() 
+			move() 
+		}, 1000)
+		// transform second-hand
+			/**
+			 * EVERY SECOND: seconds = 360deg/(60s/min) = 6deg
+		// transform minute-hand
+			/**
+			 * EVERY MINUTE: minute = 360deg/(60mins/hr) = 6deg
+			 * EVERY SECOND: minute.secondsPos = 360deg/(60*60) = .1deg
+		// transform hour-hand
+			/**
+			 * EVERY HOUR: hour = 360deg/12hr = 30deg
+			 * EVERY MINUTE: hour.minutePos = 360deg/(12*60)deg = .5deg
+			 * EVERY SECOND: hour.secondsPos = 360deg/(12*60*60)deg = .00833deg
+			 */
+	</script>
+</body>
+</html>
