@@ -117,10 +117,7 @@
 
   <script>
     function handleClick(e) {
-      this.classList.contains('open') 
-        ? this.classList.remove('open') 
-        : this.classList.add('open')
-
+      this.classList.toggle('open')
       const others = [...panels]
         .filter(panel => panel !== this)
         .forEach(panel => { panel.classList.remove('open') })
