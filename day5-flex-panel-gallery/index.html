@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Flex Panels 💪</title>
-  <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Amatic+SC|MedievalSharp' rel='stylesheet' type='text/css'>
 </head>
 <body>
   <style>
     html {
       box-sizing: border-box;
-      background:#ffc600;
-      font-family:'helvetica neue';
+      background: white;
+      font-family: 'helvetica neue';
       font-size: 20px;
       font-weight: 200;
     }
@@ -29,7 +29,7 @@
 
     .panel {
       display: flex;
-      background: #6B0F9C;
+      background: white;
       box-shadow: inset 0 0 0 5px rgba(255,255,255,0.1);
       color: white;
       height: 100vh;
@@ -47,11 +47,11 @@
       background-size: cover;
       background-position: center;
     }
-    .panel1 { background-image:url(https://source.unsplash.com/gYl-UtwNg_I/1500x1500); }
-    .panel2 { background-image:url(https://source.unsplash.com/rFKUFzjPYiQ/1500x1500); }
-    .panel3 { background-image:url(https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&cs=tinysrgb&w=1500&h=1500&fit=crop&s=967e8a713a4e395260793fc8c802901d); }
-    .panel4 { background-image:url(https://source.unsplash.com/ITjiVXcwVng/1500x1500); }
-    .panel5 { background-image:url(https://source.unsplash.com/3MNzGlQM7qs/1500x1500); }
+    .panel1 { background-image: url(https://source.unsplash.com/MNtag_eXMKw/1500x1500); }
+    .panel2 { background-image: url(https://source.unsplash.com/vzX2rgUbQXM/1500x1500); }
+    .panel3 { background-image: url(https://source.unsplash.com/D-vDQMTfAAU/1500x1500); }
+    .panel4 { background-image: url(https://source.unsplash.com/GuvimT4IFok/1500x1500); }
+    .panel5 { background-image: url(https://source.unsplash.com/PvAAYZx-yf8/1500x1500); }
 
     .panel > * {
       margin:0;
@@ -68,15 +68,20 @@
     .panel p:nth-child(2) {
       margin: 50vh 0;
       font-size: 4em;
-      transition: margin 0.35s cubic-bezier(0.61,-0.19, 0.7,-0.11) 0.35s;
+      transition: all 0.175s cubic-bezier(0.61,-0.19, 0.7,-0.11);
     }
     .panel.open {
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Hot_dog_with_mustard.png/1600px-Hot_dog_with_mustard.png');
       font-size: 40px;
       flex: 2;
     }
     .panel.open p:nth-child(2) {
+      font-size: 0px;
       margin: 0;
-      transition: margin 0.35s cubic-bezier(0.61,-0.19, 0.7,-0.11) 0.35s;
+      transition: all 0.35s cubic-bezier(0.61,-0.19, 0.7,-0.11) .35s;
+    }
+    .panel.open p:nth-child(odd) {
+      font-family: 'MedievalSharp', cursive;
     }
 
   </style>
@@ -84,29 +89,29 @@
 
   <div class="panels">
     <div class="panel panel1">
-      <p>Hey</p>
+      <p>Hot</p>
       <p>Let's</p>
-      <p>Dance</p>
+      <p>Dog</p>
     </div>
     <div class="panel panel2">
-      <p>Give</p>
+      <p>Hot</p>
       <p>Take</p>
-      <p>Receive</p>
+      <p>Dog</p>
     </div>
     <div class="panel panel3">
-      <p>Experience</p>
+      <p>Hot</p>
       <p>It</p>
-      <p>Today</p>
+      <p>Dog</p>
     </div>
     <div class="panel panel4">
-      <p>Give</p>
+      <p>Hot</p>
       <p>All</p>
-      <p>You can</p>
+      <p>Dog</p>
     </div>
     <div class="panel panel5">
-      <p>Life</p>
+      <p>Hot</p>
       <p>In</p>
-      <p>Motion</p>
+      <p>Dog</p>
     </div>
   </div>
 
