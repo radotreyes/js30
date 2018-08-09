@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+	/* set the canvas object, context, and size */
+	const canvas = document.querySelector('#draw')
+	const context = canvas.getContext('2d')
+	canvas.width = window.innerWidth 
+	canvas.height = window.innerHeight
+
+	/* set the drawing properties within the context variable */
+	context.strokeStyle = '#fc4675'
+	context.lineJoin = 'round'
+	context.lineCap = 'round'
+	context.lineWidth = 50
+
+	/* state variables */
+	const state = { 
+		drawing: false,
+		hue: 0,
+		x: 0,
+		y: 0
+	}
+	function draw(e) {
+		if(state.drawing) {
+			/* new path */
+			context.beginPath()
+
+			/* set line properties */
+			context.moveTo(state.x, state.y)
+			context.lineTo(e.offsetX, e.offsetY)
+
+			/* draw the line */
+			context.stroke()
+
+			/* set new state */
+			state.x = e.offsetX
+			state.y = e.offsetY
+
+			/* set new stroke style */
+			state.hue = state.hue >= 360 ? 0 : state.hue + 1
+			context.strokeStyle = `hsl(${state.hue}, 100%, 50%)`
+		}
+		return false
+	}
+
+	window.addEventListener('mousemove', draw)
+	window.addEventListener('mousedown', e => { 
+		state.x = e.offsetX
+		state.y = e.offsetY
+		state.drawing = true 
+	})
+	window.addEventListener('mouseup', () => { state.drawing = false })
+	window.addEventListener('mouseout', () => { state.drawing = false })
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+</style>
+
+</body>
+</html>
