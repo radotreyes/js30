@@ -113,7 +113,7 @@
         if (doCheck) box.checked = true
       })
     }
-    state.origin = this
+    if (!(state.origin === this || !this.checked)) state.origin = this
     console.log(state.origin)
   }
   /* grab checkbox elements */
