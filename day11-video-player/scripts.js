@@ -8,7 +8,7 @@ const volumeSlider = player.querySelector('[name="volume"]')
 const playbackSlider = player.querySelector('[name="playbackRate"]')
 
 /* assign handlers */
-function handlePlayPause(e) {
+function handlePlayPause() {
 	const method = viewer.paused ? 'play' : 'pause'
 	viewer[method]()	
 	this.innerHTML = viewer.paused ? '►' : 'II'

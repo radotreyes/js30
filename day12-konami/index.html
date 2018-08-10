@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Key Detection</title>
+  <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
+</head>
+<body>
+<script>
+	/* up up down down left right left right b a start */
+	const konami = [
+		'ArrowUp', 
+		'ArrowUp', 
+		'ArrowDown', 
+		'ArrowDown', 
+		'ArrowLeft', 
+		'ArrowRight', 
+		'ArrowLeft', 
+		'ArrowRight',
+		'b',
+		'a',
+		'Enter'
+	]
+	const buffer = []
+
+	/* handler lol */
+	function handleKonami(e) {
+		console.count(e.key);
+		buffer.push(e.key);
+		buffer.splice(-konami.length - 1, buffer.length - konami.length);
+		if (konami.join() === (buffer.join())) {
+			cornify_add();
+		}
+	}
+
+	window.addEventListener('keyup', handleKonami)
+</script>
+</body>
+</html>
