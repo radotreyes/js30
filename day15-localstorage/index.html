@@ -22,13 +22,14 @@
     <form class="add-items">
       <input type="text" name="item" placeholder="Item Name" required>
       <input type="submit" value="+ Add Item">
+      <div class="clear">Clear Items</div>
     </form>
   </div>
 
 <script>
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
-  const items = JSON.parse(localStorage.getItem('items')) || []
+  let items = JSON.parse(localStorage.getItem('items')) || []
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -68,6 +69,16 @@
   addItems.addEventListener('submit', handleSubmit)
   populate(items, itemsList)
   itemsList.addEventListener('click', handleClick)
+  document.querySelector('.clear').addEventListener(
+    'click',
+    () => { 
+      console.log('ouch')
+      itemsList.innerHTML = 'Loading Tapas...'
+      items = []
+      localStorage.clear()
+      populate(items, itemsList)
+    }
+  )
 </script>
 
 
