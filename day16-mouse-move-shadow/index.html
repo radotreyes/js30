@@ -52,16 +52,19 @@
 
     /* define polar coordinates based on position */
     const angle = Math.atan2(distance.y, distance.x)
-    const radius = Math.sqrt(2 * 30**2)
-
-    /* to cartesian */
-    const x = radius * Math.cos(angle)
-    const y = radius * Math.sin(angle)
 
     /* also shift the angle by 45 because why not */
-    const angle45 = angle + Math.PI / 4
-    const x45 = radius * Math.cos(angle45)
-    const y45 = radius * Math.sin(angle45)
+    const angle45 = angle + Math.PI / 2
+
+    /* define a variable amplitude */
+    const A = 30 * angle + Math.PI / 6
+
+    /* to cartesian */
+    const x = A * Math.cos(angle)
+    const y = A * Math.sin(angle)
+
+    const x45 = A * Math.cos(angle45)
+    const y45 = A * Math.sin(angle45)
 
     console.log(
       `ANGLE: ${(angle / Math.PI * 180).toPrecision(3)}˚`
