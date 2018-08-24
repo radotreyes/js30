@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Speech Synthesis</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="voiceinator">
+
+    <h1>The Voiceinator 5000</h1>
+
+    <select name="voice" id="voices">
+      <option value="">Select A Voice</option>
+    </select>
+
+    <label for="rate">Rate:</label>
+    <input name="rate" type="range" min="0" max="3" value="1" step="0.1">
+
+    <label for="pitch">Pitch:</label>
+
+    <input name="pitch" type="range" min="0" max="2" step="0.1">
+    <textarea name="text">Hello! I love JavaScript 👍</textarea>
+    <button id="stop">Stop!</button>
+    <button id="speak">Speak</button>
+
+  </div>
+
+  <script>
+    /* elements */
+    const synth = window.speechSynthesis
+    const msg = new SpeechSynthesisUtterance();
+    let voices = [];
+    const voicesDropdown = document.querySelector('[name="voice"]');
+    const options = document.querySelectorAll('[type="range"], [name="text"]');
+    const speakButton = document.querySelector('#speak');
+    const stopButton = document.querySelector('#stop');
+
+    /* listeners */
+    speakButton.addEventListener('click', () => {synth.speak(msg)})
+    stopButton.addEventListener('click', () => {synth.cancel()})
+    options.forEach(option => {
+      msg[option.attributes.name.value] = option.value
+      option.addEventListener('input', handleInput)
+    })
+    synth.addEventListener('voiceschanged', populateVoices)
+    voicesDropdown.addEventListener('change', setVoice)
+
+    /* behavior */
+    function handleInput(e) {
+      e.target.attributes.name.value == 'text'
+        ? msg.text = this.value + e.data
+        : msg[this.attributes.name.value] = e.target.value
+    }
+    function populateVoices() {
+      voices = this.getVoices()
+      voicesDropdown.innerHTML = voices
+        .map(voice => (
+          `<option name="${voice.name}">${voice.name} (${voice.lang})</option>`
+        ))
+        .join('')
+    }
+    function setVoice() {
+      msg.voice = voices.find(voice => (
+        voice.name === this.value.split('(')[0].trim()
+      ))
+      synth.cancel()
+      synth.speak(msg)
+    }
+  </script>
+
+</body>
+
+</html>
