@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Video Speed Scrubber</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <video class="flex" width="765" height="430" src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4" loop controls></video>
+    <div class="speed">
+      <div class="speed-bar">1×</div>
+    </div>
+  </div>
+
+  <script>
+    /* elements */
+    const video = document.querySelector('video')
+    const speed = document.querySelector('.speed')
+    const bar = document.querySelector('.speed-bar')
+
+    /* listeners */
+    speed.addEventListener('mousedown', handleMouseDown)
+    speed.addEventListener('mouseup', handleMouseUp)
+    speed.addEventListener('mouseleave', handleMouseLeave)
+    speed.addEventListener('mousemove', handleMouseMove)
+
+    /* state */
+    let isClicked = false
+    let lastY = null
+
+    /* behavior */
+    function handleMouseDown(e) {
+      console.log('ouch')
+      lastY = e.clientY
+      isClicked = true
+    }
+    function handleMouseUp() {
+      isClicked = false
+    }
+    function handleMouseLeave() {
+    }
+    function handleMouseMove(e) {
+      /* calculate height percentage */
+      const percentHeight = (e.pageY - this.offsetTop) / this.offsetHeight
+
+      /* define upper and lower bounds on range slider */
+      const [max, min] = [4, 0.4]
+
+      /* calculate playback rate based on previous two variables */
+      const playbackRate = percentHeight * (max - min) + min
+
+      if (isClicked) {
+        bar.style.height = `${Math.round(percentHeight * 100)}%`
+        bar.textContent = playbackRate.toFixed(2) + '×'
+        video.playbackRate = playbackRate
+      }
+    }
+  </script>
+</body>
+
+</html>
