@@ -58,12 +58,12 @@ e
     function moleTimeBaby() {
       const mole = Math.floor(Math.random() * 6)
       holes[mole].classList.add('up')
-      setTimeout(() => holes[mole].classList.remove('up'), 600)
+      setTimeout(() => holes[mole].classList.remove('up'), Math.random() * (1000 - 600) + 600)
     }
 
     function start() {
       score = 0
-      const id = setInterval(moleTimeBaby, 800)
+      const id = setInterval(moleTimeBaby, Math.random() * (1500 - 1100) + 1100)
       setTimeout(() => {clearInterval(id)}, 20000)
     }
 
